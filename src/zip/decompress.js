@@ -1,28 +1,28 @@
 import { createReadStream, createWriteStream } from "fs";
-import { pipeline } from "stream";
 import { unzip } from "zlib";
 import { promisify } from "util";
+
+import path from "path";
+import { updateCurrentPath } from "../start.js";
+
+
 
 const do_unzip = promisify(unzip);
 //const pipe = promisify(pipeline);
 
 const buffers = [];
 
-const decompress = async () => {
-    // Write your code here 
-    try {
-        const source = createReadStream('./src/zip/files/archive.gz');
-        for await (const data of source) {
-            buffers.push(data);
-        }
-        const finalBuffer = Buffer.concat(buffers);
-        
-        const destination = createWriteStream('./src/zip/files/fileToCompress.txt');
-        do_unzip(finalBuffer)
-            .then((buf) => destination.write(buf.toString(), 'utf8'))
-    } catch (error) {
-        throw error
+export const decompress = async (currentPath, ZipName, FileName) => { // It's doesnt WORK
+    const absZipPath = path.join(currentPath, ZipName);
+    const absFilePath = path.join(currentPath, FileName);
+    const source = createReadStream(absZipPath);
+    for await (const data of source) {
+        buffers.push(data);
     }
+    const finalBuffer = Buffer.concat(buffers);
+    
+    const destination = createWriteStream(absFilePath);
+    do_unzip(finalBuffer)
+        .then((buf) => destination.write(buf.toString()));
+    updateCurrentPath(currentPath);
 };
-
-await decompress();
