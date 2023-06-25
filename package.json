@@ -20,22 +20,17 @@
     "streams:write": "node src/streams/write.js",
     "wt": "node src/wt/main.js",
     "zip:compress": "node src/zip/compress.js",
-    "zip:decompress": "node src/zip/decompress.js"
+    "zip:decompress": "node src/zip/decompress.js",
+    "start": "node src/start.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AlreadyBored/node-nodejs-basics.git"
+    "url": "git+https://github.com/andrew-Go1/node-nodejs-basics.git"
   },
-  "keywords": [
-    "nodejs",
-    "assignments",
-    "alreadybored"
-  ],
-  "author": "alreadybored",
+  "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AlreadyBored/node-nodejs-basics/issues"
+    "url": "https://github.com/andrew-Go1/node-nodejs-basics/issues"
   },
-  "homepage": "https://github.com/AlreadyBored/node-nodejs-basics#readme",
-  "main": "index.js"
+  "homepage": "https://github.com/andrew-Go1/node-nodejs-basics#readme"
 }

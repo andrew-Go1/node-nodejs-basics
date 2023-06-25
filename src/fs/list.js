@@ -1,13 +1,13 @@
 import { promises as fs } from 'fs';
+import { updateCurrentPath } from '../start.js';
 
-const list = async () => {
+export const list = async (path) => {
     // Write your code here 
     try {
-        const files = await fs.readdir('./src/fs/files', { recursive: true })
+        const files = await fs.readdir(path, { recursive: true })
         files.forEach(file => console.log(file))
+        updateCurrentPath(path);
     } catch (error) {
         throw error
     }
 };
-
-await list();

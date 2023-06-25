@@ -1,12 +1,12 @@
 import { promises as fs } from 'fs';
+import path from "path";
+import { updateCurrentPath } from '../start.js';
 
-const copy = async () => {
-    // Write your code here 
-    try {
-        await fs.cp('./src/fs/files/', './src/fs/files_copy/', { recursive: true })
-    } catch(err) {
-        throw err
-    }
+export const copy = async (currentPath, oldFileName, newFileName) => {
+    const absPathOldFile = path.join(currentPath, oldFileName);
+    const absPathNewFile = path.join(currentPath, newFileName);
+    await fs.cp(absPathOldFile, absPathNewFile)
+        .catch(() => console.log('Operation failed'));
+    updateCurrentPath(currentPath);
+
 }
-
-await copy();
