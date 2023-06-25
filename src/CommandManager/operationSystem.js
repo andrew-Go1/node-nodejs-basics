@@ -4,7 +4,7 @@ import os from "node:os";
 export const operationSystem = (currentPath, osParametrs) => {
     switch (osParametrs) {
         case '--EOL':
-            console.log(os.EOL);  // need to transform it into the string
+            console.log(JSON.stringify(os.EOL));  // need to transform it into the string
             break;
         case '--cpus':
             const cpus = os.cpus();
@@ -23,7 +23,7 @@ export const operationSystem = (currentPath, osParametrs) => {
             break;
     
         default:
-            console.log('Invalid input');
+            console.log('Operation failed');
             break;
     }
     updateCurrentPath(currentPath);

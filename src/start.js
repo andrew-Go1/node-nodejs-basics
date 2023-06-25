@@ -2,6 +2,7 @@ import { CommandManager } from "./CommandManager/index.js";
 import os from "os";
 
 let currentPath = os.homedir();
+var username = 'Username';
 
 
 export const updateCurrentPath = (newPath) => {
@@ -10,30 +11,22 @@ export const updateCurrentPath = (newPath) => {
 }
 
 
-// program inicialisation:
+// program initialisation:
 process.argv.forEach((element, i, arr) => {
     if (element.startsWith('--username=')) {
-        const username = arr[i].slice(11);
+        username = arr[i].slice(11);
         console.log(`Welcome to the File Manager, ${username}!`);
     } 
 });
 console.log(`You are currently in ${currentPath}`);
 
 
-/*
-process.stdin.resume();
-function exitHandler(options, exitCode) {
-    if (options.cleanup) console.log('clean');
-    if (exitCode || exitCode === 0)
-        console.log('exit');
-    if (options.exit) process.exit();
-}
-
-process.stdin.on('exit', exitHandler.bind(null, { cleanup: true }));
-process.stdin.on('SIGINT', () =>    console.log('exit'));
-*/
             
 const listen = () => {
+    process.on('SIGINT', () => {
+        console.log(`\nThank you for using File Manager, ${username}, goodbye!`);
+        process.exit();
+    });
     process.stdin.on('data', data => {
         const manager = CommandManager(currentPath);
         const commands = String(data).trim().split(" ");
