@@ -12,7 +12,7 @@ import { decompress } from '../zip/decompress.js';
 import { operationSystem } from './operationSystem.js';
 
  
-export function CommandManager(currentPath) {
+export function CommandManager(currentPath, username) {
     return {
         'ls': () => list(currentPath),
         'cd': (wishingPath) => cd(currentPath, wishingPath),
@@ -25,6 +25,10 @@ export function CommandManager(currentPath) {
         'hash': (fileName) => calculateHash(currentPath, fileName),
         'compress': (FileName, ZipName) => compress(currentPath, FileName, ZipName),
         'decompress': (ZipName, FileName) => decompress(currentPath, ZipName, FileName),
-        'os': (osParametrs) => operationSystem(currentPath, osParametrs)
+        'os': (osParametrs) => operationSystem(currentPath, osParametrs),
+        '.exit': () => { 
+            console.log(`\nThank you for using File Manager, ${username}, goodbye!`);
+            process.exit();
+        }
     }
 }
