@@ -1,15 +1,12 @@
 import { createHash } from 'crypto';
 import { promises as fs } from 'fs';
+import path from "path";
+import { updateCurrentPath } from '../start.js';
 
-const calculateHash = async () => {
-    // Write your code here 
-    try {
-        const fileBuffer = await fs.readFile('./src/hash/files/fileToCalculateHashFor.txt', { encoding: 'utf8' });
-        const hash = createHash('sha256').update(fileBuffer).digest('hex');
-        console.log(hash);
-    } catch(error) {
-        throw error
-    }
+export const calculateHash = async (currentPath, fileName) => {
+    const absFilePath = path.join(currentPath, fileName);
+    await fs.readFile(absFilePath)
+        .then((fileBuffer) => console.log(createHash('sha256').update(fileBuffer).digest('hex')))
+        .catch(() => console.log('Operation failed'));
+    updateCurrentPath(currentPath);
 };
-
-await calculateHash();

@@ -2,9 +2,9 @@ import { promises as fs } from 'fs';
 import path from "path";
 import { updateCurrentPath } from '../start.js';
 
-export const create = async (currentPath, fileName) => {
+export const remove = async (currentPath, fileName) => {
     const absFilePath = path.join(currentPath, fileName);
-    await fs.writeFile(absFilePath, '')
-        .catch(() => 'Operation failed')
+    await fs.unlink(absFilePath)
+        .catch(() => console.log('Operation faild'));
     updateCurrentPath(currentPath);
 };
